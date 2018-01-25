@@ -1,3 +1,6 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/3f4a76f5228da102893f/maintainability)](https://codeclimate.com/github/neomede/chattp2/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3f4a76f5228da102893f/test_coverage)](https://codeclimate.com/github/neomede/chattp2/test_coverage)
+
 # chattp2
 
 chattp2 is just a small chat application to play with golang and HTTP2.

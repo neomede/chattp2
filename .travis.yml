@@ -1,0 +1,13 @@
+language: go
+
+go:
+  - 1.9
+
+jobs:
+  include:
+    - env: TASK="lint"
+      install: make install-tools
+      script: make lint
+
+    - env: TASK="test"
+      script: make test-ci

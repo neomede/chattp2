@@ -3,6 +3,7 @@ package chattp2
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -11,7 +12,6 @@ import (
 	"net/http"
 	"os"
 
-	"golang.org/x/net/context"
 	"golang.org/x/net/http2"
 )
 
@@ -71,7 +71,7 @@ func (c *Client) connect() {
 	defer res.Body.Close()
 
 	for {
-		io.Copy(os.Stdout, messageReader{res.Body})
+		_, _ = io.Copy(os.Stdout, messageReader{res.Body})
 	}
 }
 

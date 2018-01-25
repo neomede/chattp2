@@ -1,19 +1,19 @@
 package chattp2
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
 	"net/http"
 
-	"golang.org/x/net/context"
 	"golang.org/x/net/http2"
 )
 
 // Server represents the chattp2 server, a chat server based on HTTP2
 type Server struct {
-	httpServer http.Server
+	httpServer *http.Server
 	msgsChan   map[string]chan string
 }
 
@@ -26,7 +26,7 @@ func NewServer() (*Server, error) {
 	// srv.ConnState = idleTimeoutHook()
 
 	return &Server{
-		httpServer: srv,
+		httpServer: &srv,
 		msgsChan:   make(map[string]chan string),
 	}, nil
 }
@@ -36,7 +36,7 @@ func (s *Server) Run(ctx context.Context) {
 	http.HandleFunc("/connect", s.connectHandler)
 	http.HandleFunc("/send", s.sendHandler)
 
-	http2.ConfigureServer(&s.httpServer, &http2.Server{})
+	_ = http2.ConfigureServer(s.httpServer, &http2.Server{})
 	go func() {
 		log.Printf("chattp2 server listening in %s", s.httpServer.Addr)
 		log.Fatal(s.httpServer.ListenAndServeTLS("server.crt", "server.key"))
@@ -79,7 +79,7 @@ func (s *Server) connectHandler(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) sendHandler(w http.ResponseWriter, r *http.Request) {
 	var msg Message
-	json.NewDecoder(r.Body).Decode(&msg)
+	_ = json.NewDecoder(r.Body).Decode(&msg)
 
 	if _, ok := s.msgsChan[msg.Receiver]; !ok {
 		log.Printf("User `%s` doesn't exists.", msg.Receiver)
