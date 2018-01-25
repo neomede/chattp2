@@ -16,7 +16,10 @@ test:
 .PHONY: test
 
 test-ci:
-	GORACE="halt_on_error=1" go test -race -v $(PACKAGES)
+	echo "mode: count" > c.out
+	$(foreach pkg,$(PACKAGES),\
+		GORACE="halt_on_error=1" go test -v -race -cover -coverprofile=coverage.out $(pkg) || exit 1;\
+		tail -n +2 coverage.out >> c.out;)
 .PHONY: test-ci
 
 lint:
