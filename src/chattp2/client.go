@@ -15,16 +15,6 @@ import (
 	"golang.org/x/net/http2"
 )
 
-// TestedFunc is a func to check codeclimate coverage
-func TestedFunc() bool {
-	return true
-}
-
-// UntestedFunc is a func to check codeclimate coverage
-func UntestedFunc() bool {
-	return true
-}
-
 // Client represents a chattp2 client
 type Client struct {
 	sender     string
