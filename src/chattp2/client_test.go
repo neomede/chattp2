@@ -14,3 +14,10 @@ func TestNewClient(t *testing.T) {
 	a.NoError(err)
 	a.NotNil(client)
 }
+
+func TestTestedFunc(t *testing.T) {
+	a := assert.New(t)
+
+	result := chattp2.TestedFunc()
+	a.True(result)
+}
