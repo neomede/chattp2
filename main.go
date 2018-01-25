@@ -1,11 +1,11 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 
 	"github.com/neomede/chattp2/src/chattp2"
-	"golang.org/x/net/context"
 )
 
 func main() {
